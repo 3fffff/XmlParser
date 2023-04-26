@@ -39,7 +39,7 @@ function xmlToObject(file) {
 function transformXml(rootElem) {
   var result = [], vals = [], root = rootElem;
   function parseRecursive(dom) {
-    if (dom.parentNode.nodeName === root) {
+    if (dom.nodeName === root) {
       result.push(...addVals(vals))
       vals = [];
     }
