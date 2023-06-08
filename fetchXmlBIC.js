@@ -32,12 +32,11 @@ function xmlToObject(file) {
   const parser = new DOMParser()
   const decodeFile = iconv.encode(iconv.decode(zip.readFile(zipEntries[0]), 'win1251'), 'utf8').toString()
   const xml = parser.parseFromString(decodeFile, "text/xml");
-  const transXML = transformXml(xml.documentElement.nodeName)
-  return transXML(xml.documentElement)
+  return transformXml(xml.documentElement)
 }
 
 function transformXml(rootElem) {
-  var result = [], vals = [], root = rootElem;
+  var result = [], vals = [], root = rootElem.nodeName;
   function parseRecursive(dom) {
     if (dom.nodeName === root) {
       result.push(...addVals(vals))
@@ -58,5 +57,5 @@ function transformXml(rootElem) {
       return result
     }
   }
-  return parseRecursive
+  return parseRecursive(rootElem)
 }
